@@ -62,13 +62,20 @@ void modifyFile(QDir root)
                 } else {
                     qInfo() << "Failed to remove 'Test2' folder after delay!";
                 }
+
+                // Print the folder list again after removal
+                QStringList folderList = root.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+                qInfo() << "Folders in currPath after removal:";
+                foreach (QString folder, folderList) {
+                    qInfo() << folder;
+                }
             });
         } else {
             qInfo() << "Failed to rename 'Test' to 'Test2'";
         }
     } else {
         // Create "Test" folder if it does not exist
-        qInfo() << "  404! ";
+        qInfo() << "404! ";
         if (root.mkdir("Test")) {
             qInfo() << "'Test' folder is created!";
             qInfo() << "Absolute Path: " << root.absoluteFilePath("Test");
@@ -77,9 +84,9 @@ void modifyFile(QDir root)
         }
     }
 
-    // Show all folder names in currPath to verify no "Test" or "Test2" folder remains
+    // Show all folder names in currPath before removal
     QStringList folderList = root.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    qInfo() << "Folders in currPath:";
+    qInfo() << "Folders in currPath before removal:";
     foreach (QString folder, folderList) {
         qInfo() << folder;
     }
