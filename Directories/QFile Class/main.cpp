@@ -21,20 +21,24 @@ void FileOps()
     qInfo()<<file.readAll();
     file.close();
 }
-
 bool WriteFile()
 {
-    QFile file("text.txt");
-    if(!file.open(QIODevice::OpenModeFlag::WriteOnly))
+    QByteArray greetings("French: Bonjour, le monde!\n"
+                         "Spanish: ¡Hola, Mundo!\n"
+                         "German: Hallo, Welt!\n"
+                         "Hindi: नमस्ते, दुनिया!\n");
+
+     QFile file("text.txt");
+
+    if (!file.open(QIODevice::OpenModeFlag::WriteOnly | QIODevice::Text))
     {
-        qCritical()<<file.errorString();
+        qCritical() << file.errorString();
         return false;
     }
+
     QTextStream stream(&file);
-    for(int i=0; i<5; i++)
-    {
-        stream<<QString::number(i)<<"¡Hola, Mundo!\n";
-    }
+    stream << greetings;  
+
     file.close();
     return true;
 }
