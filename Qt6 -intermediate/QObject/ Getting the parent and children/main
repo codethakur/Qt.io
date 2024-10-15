@@ -1,0 +1,44 @@
+#include <QCoreApplication>
+#include <QDebug>
+#include <QObject>
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QObject Parent;
+    Parent.setObjectName("Parent");
+    qInfo() << Parent.objectName();
+
+    QObject Child;
+    Child.setObjectName("Child");
+    qInfo() << Child.objectName();
+
+    qInfo() << "----------------------------------\n";
+    Child.setParent(&Parent);
+    qInfo() << "Parent of Child:" << Child.parent()->objectName();
+
+    qInfo() << "----------------------------------\n";
+
+    qInfo() << "Children of Parent:" << Parent.children();
+
+    qInfo() << "------------ForEach----------------\n";
+
+    foreach (QObject *obj, Parent.children()) {
+        qInfo() << "Child Object:" << obj;
+    }
+
+    qInfo() << "+++++++++++++++++++++++++\n";
+
+    // Creating children dynamically to persist them
+    for (int i = 0; i < 5; i++) {
+        QObject* Child2 = new QObject(&Parent);
+        Child2->setObjectName("Child" + QString::number(i+2));
+    }
+
+    foreach (QObject *obj, Parent.children()) {
+        qInfo() << "Child Object:" << obj->objectName();
+    }
+
+    return a.exec();
+}
