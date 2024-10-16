@@ -1,0 +1,2 @@
+Qt provides a set of container classes that are quite similar to STL containers
+ in C++, with some unique features and optimizations tailored for Qt-based development. 
