@@ -1,23 +1,20 @@
 #include <QCoreApplication>
+#include <QScopedPointer>
 #include <QSharedPointer>
 #include <QWeakPointer>
-#include"entity.h"
+#include <QDebug>
+#include "entity.h"
 
-
-void ScopePtr()
-{
+void ScopePtr() {
     QScopedPointer<Entity> ScoPtr(new Entity());
     ScoPtr->setObjectName("Scope Pointer");
 
-    // Print the address of the QScopedPointer and the name of the Entity object
     qInfo() << "QScopedPointer Address:" << &ScoPtr;
-    qInfo() << "Entity Object Address:" << ScoPtr.data(); // .data() gives the raw pointer
-    qInfo() << "Entity Object Name:" << ScoPtr->objectName()<<"\n";
+    qInfo() << "Entity Object Address:" << ScoPtr.data();
+    qInfo() << "Entity Object Name:" << ScoPtr->objectName() << "\n";
 }
 
-
-void SharPtr()
-{
+void SharPtr() {
     QSharedPointer<Entity> SharPtr1(new Entity());
     SharPtr1->setObjectName("Shared Pointer1");
 
@@ -25,32 +22,27 @@ void SharPtr()
     qInfo() << "Entity Object Address (SharPtr1):" << SharPtr1.data();
     qInfo() << "Entity Object Name (SharPtr1):" << SharPtr1->objectName();
 
-    qInfo()<<"------------------------------------------\n";
+    qInfo() << "------------------------------------------";
     QSharedPointer<Entity> SharPtr2 = SharPtr1;
-    //SharPtr2->setObjectName("Shared Pointer2");
-
     qInfo() << "QSharedPointer2 Address:" << &SharPtr2;
-    qInfo() << "Entity Object Address (SharPtr2):" << SharPtr2.data(); // Same address as SharPtr1
+    qInfo() << "Entity Object Address (SharPtr2):" << SharPtr2.data();
     qInfo() << "Entity Object Name (SharPtr2):" << SharPtr2->objectName() << "\n";
 
-    qInfo()<<"------------------------------------------\n";
-    //qInfo() << "Entity Object Name after changed (SharPtr1):" << SharPtr1->objectName();
-    if (SharPtr1.isNull()) {
-        qInfo() << "SharPtr1 is null.";
+    QWeakPointer<Entity> weakPtr(SharPtr2);
+    qInfo() << "QWeakPointer Address:" << &weakPtr;
+
+    if (auto strongRef = weakPtr.toStrongRef()) {
+        qInfo() << "Entity Object Address (weakPtr):" << strongRef.data();
+        qInfo() << "Entity Object Name (weakPtr):" << strongRef->objectName();
     } else {
-        qInfo() << "SharPtr1 is valid.";
+        qInfo() << "The weak pointer does not refer to a valid object.";
     }
 }
 
-
-
-
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
-
-
+    ScopePtr();
+    qInfo() << "------------------------------------------\n";
     SharPtr();
-
     return a.exec();
 }
