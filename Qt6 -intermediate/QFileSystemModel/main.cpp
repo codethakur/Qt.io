@@ -135,24 +135,29 @@ void ListFile(QDir &root)
 
 void saveToTemporaryFile()
 {
-    tempFile.setFileTemplate(QDir::tempPath()+"tempxxxxxxx.txt");
+    // Create a temporary file with a template in the desired directory
+    QTemporaryFile tempFile("A:/Qt6/FilesSys/tempXXXXXX.txt");
+
+    // Disable automatic removal after closing
     tempFile.setAutoRemove(false); // This will prevent the file from being deleted
 
-    if(tempFile.open())
-    {
-        qDebug()<<"Temporary File is Created!"<<tempFile.fileName();
+    // Open the temporary file in WriteOnly mode
+    if (tempFile.open()) {
+        qDebug() << "Temporary file created at:" << tempFile.fileName();
 
+        // Create a QTextStream to write to the file
         QTextStream out(&tempFile);
-        out<<"This is temporary data.\n";
-        out<<"File will automaticaly delete after closeing\n";
+        out << "This is temporary data." << Qt::endl;
+        out << "File will not be deleted after closing." << Qt::endl;
 
+        // Close the file after writing
         tempFile.close();
+
         qDebug() << "Temporary file saved and closed.";
-    }else{
+    } else {
         qDebug() << "Failed to create the temporary file.";
     }
 }
-
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
