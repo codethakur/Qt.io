@@ -38,7 +38,7 @@ void ReadWrite()
 void WriteOnly()
 {
     // Specify the full path to the desired location
-    QString fileName = "A:/Qt6/FilesSys/text.txt"; // Desired file path
+    tempFile.setFileTemplate(QDir::tempPath()+"tempxxxxxxx.txt");
     QFile file(fileName);
 
     // Print the current working directory (optional)
