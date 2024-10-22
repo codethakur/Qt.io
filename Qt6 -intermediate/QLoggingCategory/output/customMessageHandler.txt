@@ -1,0 +1,4 @@
+Tue Oct 22 17:51:22 2024: This will be logged
+ (File: A:/Qt6/QLoggingCategory/main.cpp, Line: 22, Function: int main(int, char**))
+Tue Oct 22 17:51:22 2024: this is test
+ (File: A:/Qt6/QLoggingCategory/test.cpp, Line: 9, Function: void Test::testing())
