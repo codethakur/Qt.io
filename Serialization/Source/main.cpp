@@ -119,36 +119,36 @@ void ReadData(QString path)
 
 }
 
-int main(int argc, char *argv[])
-{
+
+int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
     QString file("A:/Qt6/Serialization/jsonData.json");
-//  QString original("A:/Qt6/FileCompresing/makeFile.txt");
-#if 0
-    if(Save(file)){
-        qInfo() << "Saved!";
-        qInfo() << "\n--------------------------------\n";
-        Read(file);
-    }
 
-    // Print the absolute path of the file
+    // Check if the file already exists
     QFileInfo fileInfo(file);
-    qInfo() << "File location:" << fileInfo.absoluteFilePath();
+    if (fileInfo.exists()) {
+        // File exists, ask user whether to append or overwrite
+        qInfo() << "File already exists. Do you want to append (A) or overwrite (O)?";
 
+        QTextStream input(stdin);
+        QString choice = input.readLine();
 
-    Entity entit;
-    entit.fill();
-
-    if (SaveFile(&entit, file))
-    {
-        LoadFile(file);
+        if (choice.toUpper() == "A") {
+            // Append new data to the existing file
+            WriteData(file);
+            qInfo() << "Data appended successfully to:" << file;
+        } else {
+            // Overwrite the existing file
+            WriteData(file);
+            qInfo() << "File overwritten successfully to:" << file;
+        }
+    } else {
+        // File does not exist, create a new file
+        WriteData(file);
     }
-#endif
 
-    WriteData(file);
-    //ReadData(file);
-    JosonConverter *read;
-    read->ReadJsonData(file);
+    // Read the data to display
+    ReadData(file);
 
     return a.exec();
 }
