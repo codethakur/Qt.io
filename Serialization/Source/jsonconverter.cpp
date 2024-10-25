@@ -40,7 +40,7 @@ void JosonConverter::writeJson(Entity *entityObj, QString path)
 
     qInfo() << "JSON saved successfully to:" << path;
 }
-#if 0
+
 Entity* JosonConverter::ReadJsonData(QString path)
 {
     QFile file(path);
@@ -55,10 +55,6 @@ Entity* JosonConverter::ReadJsonData(QString path)
     file.close();
 
     QJsonDocument document = QJsonDocument::fromJson(jsonData);
-    // if (document.isNull()) {
-    //     qCritical() << "Invalid JSON data!";
-    //     return nullptr;
-    // }
 
     if (document.isNull() || !document.isObject()) {
         qCritical() << "Invalid JSON data!";
@@ -76,11 +72,11 @@ Entity* JosonConverter::ReadJsonData(QString path)
     for (QString key : itemsObject.keys()) {
         map.insert(key, itemsObject[key].toString());
     }
-    entity->setMap(map);  // Assuming Entity class has setMap function
+    entity->setMap(map);
 
     return entity;
 }
-#endif
+#if 0
 Entity* JosonConverter::ReadJsonData(QString path) {
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -110,3 +106,4 @@ Entity* JosonConverter::ReadJsonData(QString path) {
 
     return entity;
 }
+#endif
