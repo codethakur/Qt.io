@@ -1,0 +1,37 @@
+#if 0
+    qInfo() << "System info:\n";
+    qInfo() << "Boot ID: " << QSysInfo::bootUniqueId();
+    qInfo() << "CPU Architecture: " << QSysInfo::buildCpuArchitecture();
+    qInfo() << "Kernel: " << QSysInfo::kernelType();
+    qInfo() << "Kernel Version: " << QSysInfo::kernelVersion();
+    qInfo() << "Machine Host Name: " << QSysInfo::machineHostName();
+    qInfo() << "Product Type: " << QSysInfo::productType();
+    qInfo() << "Product Version: " << QSysInfo::productVersion();
+    qInfo() << "Pretty Product Name: " << QSysInfo::prettyProductName();
+
+    qInfo() << "\n------------------------------------\n";
+    QString osType = QSysInfo::productType();
+
+    if (osType == "windows") {
+        qInfo() << "Operating System: Windows";
+    } else if (osType == "linux") {
+        qInfo() << "Operating System: Linux";
+    } else if (osType == "osx") {
+        qInfo() << "Operating System: Mac";
+    } else {
+        qInfo() << "Operating System: Unknown";
+    }
+#endif
+
+
+
+i want add this 
+QProcess process;
+process.execute("exe", QStringList<<"https://github.com/codethakur");
+        if( ...){ 
+        return code? Yes:No
+//if yesprocess.execute( 
+if No appliction closed
+    }
+
+after: extracted successfully to:
