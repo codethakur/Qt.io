@@ -1,5 +1,7 @@
 #include <QCoreApplication>
 #include<QTimer>
+#include "timeclass.h"
+#include"filedirwatcher.h"
 
 void Wait()
 {
@@ -7,10 +9,17 @@ void Wait()
 }
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
-    qInfo()<<"Please wait..\n";
+     QCoreApplication a(argc, argv);
 
-    QTimer::singleShot(5000, Wait);
+    FileDirWatcher fsw;
+
+
+
+     // TimeClass time;
+     // time.timestart();
+    // qInfo()<<"Please wait..\n";
+
+    // QTimer::singleShot(5000, Wait);
 
     return a.exec();
 }
